@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import TaskCard from "./TaskCard";
 
 
 export default function TaskList() {
@@ -20,9 +21,7 @@ export default function TaskList() {
                 ? <h2>"Loading..."</h2>
                 : <section>
                     {tasks.map((task)=>(
-                        <div key={task.taskId}>
-                            {task.task}
-                        </div>
+                        <TaskCard  key={task.taskId} task={task}/>
                     ))}
                 </section>
             }
