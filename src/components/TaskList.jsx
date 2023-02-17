@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
 
 
-export default function TaskList() {
-    const [tasks, setTasks] = useState();
+export default function TaskList({ tasks, setTasks }) {
 
     useEffect(() => {
         fetch('https://todo-c9-api-gp.web.app/tasks')
