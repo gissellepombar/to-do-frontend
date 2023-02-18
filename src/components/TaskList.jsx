@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
 
-
 export default function TaskList({ tasks, setTasks }) {
 
     useEffect(() => {
@@ -11,6 +10,20 @@ export default function TaskList({ tasks, setTasks }) {
             .catch(console.error)
     }, [])
 
+    const toggleDone = (task) => {
+        const done = !!!task.done; // true, false, undefined
+        fetch(`https://todo-c9-api-gp.web.app/tasks/${task.taskId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ done }),
+        })
+          .then((res) => res.json())
+          .then(setTasks)
+          .catch(console.error);
+      };
+
     return (
         <article>
         <div>
@@ -19,11 +32,12 @@ export default function TaskList({ tasks, setTasks }) {
             {!tasks 
                 ? <h2>"Loading..."</h2>
                 : <section>
-                    {tasks.map((task)=>(
-                        <TaskCard  key={task.taskId} task={task}/>
+                    {tasks.map((element)=>(
+                        <TaskCard toggleDone={toggleDone} key={element.taskId} data={element}/>
                     ))}
                 </section>
             }
         </article>
     )
 }
+

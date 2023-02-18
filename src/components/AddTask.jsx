@@ -6,7 +6,7 @@ export default function AddTask({ tasks, setTasks }) {
     const [task, setTask] = useState("")
 
     const newTask = {
-        "done": false, 
+        "done": false,
         "task": task
     }
 
@@ -14,35 +14,35 @@ export default function AddTask({ tasks, setTasks }) {
         e.preventDefault();
 
         fetch(`https://todo-c9-api-gp.web.app/tasks`, {
-        method: "POST", 
-        headers: { 
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(newTask),
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newTask),
         })
             .then((res) => res.json())
             .then(setTasks)
             .then(() => (setTask('')))
             .catch(err => console.log(err.message))
     }
-    
-    return(
+
+    return (
         <>
-        <form onSubmit={handleNewTask}>
-            <Form.Group>
-                <Form.Label>Task</Form.Label>
-                <Form.Control 
-                    name="task"
-                    type="task" 
-                    placeholder="Enter Task"
-                    value={task}
-                    className="p-3 hover-effect" 
-                    onChange={e => setTask(e.target.value)} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </form>
+            <form onSubmit={handleNewTask}>
+                <Form.Group>
+                    <Form.Label>Task</Form.Label>
+                    <Form.Control
+                        name="task"
+                        type="task"
+                        placeholder="Enter Task"
+                        value={task}
+                        className="p-3 hover-effect"
+                        onChange={e => setTask(e.target.value)} />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </form>
         </>
     )
 }
